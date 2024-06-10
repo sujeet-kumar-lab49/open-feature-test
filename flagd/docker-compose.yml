@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  flagd:
+    build: .
+    container_name: flagd
+    ports:
+      - "8013:8013"
+    volumes:
+      - flagd-config:/app/:consistent
+    command: ["start", "--uri", "file:/app/demo.flagd.json"]
+
+volumes:
+  flagd-config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: C:/Users\sujeet.kumar/D-Drive/D/OpenFeature/open-feature/flagd
