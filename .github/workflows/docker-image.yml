@@ -43,5 +43,5 @@ jobs:
         run: |
           docker build -t feature-test:latest .
           docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker tag cache-service:latest ${{ secrets.ACR_LOGIN_SERVER }}/feature-test:latest
+          docker tag feature-test:latest ${{ secrets.ACR_LOGIN_SERVER }}/feature-test:latest
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/feature-test:latest
