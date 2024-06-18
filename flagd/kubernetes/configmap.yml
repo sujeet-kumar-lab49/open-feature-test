@@ -1,3 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flagd-config
+data:
+  demo.flagd.json: |
     {
       "$schema": "https://flagd.dev/schema/v0/flags.json",
       "flags": {
@@ -7,7 +13,7 @@
             "on": true,
             "off": false
           },
-          "defaultVariant": "off"
+          "defaultVariant": "on"
         },
         "background-color": {
           "state": "ENABLED",

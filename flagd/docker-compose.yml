@@ -6,14 +6,16 @@ services:
     container_name: flagd
     ports:
       - "8013:8013"
-    volumes:
-      - flagd-config:/app/:consistent
+#    volumes:
+#      - ./:/app/
     command: ["start", "--uri", "file:/app/demo.flagd.json"]
+#    command: ["start", "--uri", "https://raw.githubusercontent.com/sujeet-kumar-lab49/open-feature-test/main/flagd/demo.flagd.json"]
 
-volumes:
-  flagd-config:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: C:/Users\sujeet.kumar/D-Drive/D/OpenFeature/open-feature/flagd
+
+#volumes:
+#  flagd-config:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: C:/Users/sujeet.kumar/D-Drive/D/OpenFeature/open-feature-test/flagd

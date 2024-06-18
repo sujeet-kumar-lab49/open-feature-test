@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flagd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flagd
+  template:
+    metadata:
+      labels:
+        app: flagd
+    spec:
+      containers:
+        - name: flagd
+          image: lab49registry24.azurecr.io/nflagd:latest
+          volumeMounts:
+            - name: flagd-config
+              mountPath: /app/demo.flagd.json
+              subPath: demo.flagd.json
+      volumes:
+        - name: flagd-config
+          configMap:
+            name: flagd-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flagd
+spec:
+  selector:
+    app: flagd
+  ports:
+    - protocol: TCP
+      port: 8013
+      targetPort: 8013
+  type: LoadBalancer  # Use NodePort or ClusterIP if you don't need an external load balancer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flagd-config
+data:
+  demo.flagd.json: |
+    {
+      "$schema": "https://flagd.dev/schema/v0/flags.json",
+      "flags": {
+        "show-welcome-banner": {
+          "state": "ENABLED",
+          "variants": {
+            "on": true,
+            "off": false
+          },
+          "defaultVariant": "off"
+        },
+        "background-color": {
+          "state": "ENABLED",
+          "variants": {
+            "red": "#FF0000",
+            "blue": "#0000FF",
+            "green": "#00FF00",
+            "yellow": "#FFFF00"
+          },
+          "defaultVariant": "blue"
+        }
+      }
+    }
